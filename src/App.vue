@@ -9,6 +9,9 @@ export default {
     return {
       json1: ""
     };
+  },
+  mounted() {
+    // this.qa.json1();
   }
 };
 </script>
