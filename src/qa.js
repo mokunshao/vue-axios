@@ -7,13 +7,13 @@ export default (function() {
     for (var i = 0, len = _urls.length; i < len; i++) {
       (function(j) {
         var _name = qa.getPathname(_urls[j]);
-        var obj = { data: { name: _name } };
-        _iqaob[_name] = function() {
+        _iqaob[_name] = function(obj) {
+          obj = obj || {};
+          obj.name = _name;
           _iqaob.sendMes.call(_iqaob, _urls[j], obj);
         };
       })(i);
     }
-    console.log(_iqaob);
     return _iqaob;
   }
   qa.getPathname = function(url) {
@@ -22,21 +22,38 @@ export default (function() {
     var _newName = _name.split(".")[0];
     return _newName;
   };
+  qa.qs = function(obj) {
+    var _str = "";
+    if (JSON.stringify(obj) !== "{}") {
+      _str += "?";
+      var _index = 0;
+      for (var key in obj) {
+        if (_index !== 0) {
+          _str += "&";
+        }
+        _str += key;
+        _str += "=";
+        _str += obj[key];
+        _index++;
+      }
+    }
+    return _str;
+  };
   function _iqa() {
     this._vueob = {};
   }
-  _iqa.prototype.sendMes = function(url, ob) {
-    console.log(url,ob)
+  _iqa.prototype.sendMes = function(url, obj) {
     var self = this;
     var _url = url || "";
-    var _ob = ob || {};
-    var _type = _ob.type || "get";
-    var _data = _ob.data || {};
+    var _obj = obj || {};
+    var _type = _obj.type || "get";
+    var _data = _obj.data || {};
+    var _name = _obj.name || "";
     var status = {
       get: function() {
-        axios.get(_url).then(function(res) {
-          var name = _data["name"];
-          self._vueob[name] = res.data;
+        var _query = qa.qs(_data);
+        axios.get(_url + _query).then(function(res) {
+          self._vueob[_name] = res.data;
         });
       },
       post: function() {},

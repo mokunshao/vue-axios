@@ -15,7 +15,7 @@ export default {
     };
   },
   mounted() {
-    this.qa.v(this).json1();
+    this.qa.v(this).json1({data:{q:11}});
     this.qa.v(this).json2();
   }
 };
