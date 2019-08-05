@@ -50,15 +50,16 @@ export default (function() {
     var _data = _obj.data || {};
     var _name = _obj.name || "";
     var _success = _obj.success || function() {};
+    var _block = _obj.block || true;
     var status = {
       get: function() {
         var _query = qa.qs(_data);
         axios.get(_url + _query).then(function(res) {
+          self.status = 0;
           var _result = _success.call(self._vueob, res);
-          if(_result){
-            console.log(1)
+          if (_result) {
             self._vueob[_name] = _result;
-          }else{
+          } else {
             self._vueob[_name] = res.data;
           }
         });
