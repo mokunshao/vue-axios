@@ -49,11 +49,18 @@ export default (function() {
     var _type = _obj.type || "get";
     var _data = _obj.data || {};
     var _name = _obj.name || "";
+    var _success = _obj.success || function() {};
     var status = {
       get: function() {
         var _query = qa.qs(_data);
         axios.get(_url + _query).then(function(res) {
-          self._vueob[_name] = res.data;
+          var _result = _success.call(self._vueob, res);
+          if(_result){
+            console.log(1)
+            self._vueob[_name] = _result;
+          }else{
+            self._vueob[_name] = res.data;
+          }
         });
       },
       post: function() {},

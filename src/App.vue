@@ -15,8 +15,12 @@ export default {
     };
   },
   mounted() {
-    this.qa.v(this).json1({data:{q:11}});
-    this.qa.v(this).json2();
+    this.qa.v(this).json1({
+      success: function(res) {
+        return res.data.name;
+      }
+    });
+    this.qa.v(this).json2({ data: { token: 33 } });
   }
 };
 </script>
