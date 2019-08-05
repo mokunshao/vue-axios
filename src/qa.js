@@ -50,7 +50,6 @@ export default (function() {
     var _data = _obj.data || {};
     var _name = _obj.name || "";
     var _success = _obj.success || function() {};
-    var _block = _obj.block || true;
     var status = {
       get: function() {
         var _query = qa.qs(_data);

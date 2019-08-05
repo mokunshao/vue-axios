@@ -20,7 +20,7 @@ export default {
         return res.data.name;
       }
     });
-    this.qa.v(this).json2({ data: { token: 33 }, block: true });
+    this.qa.v(this).json2({ data: { token: 33 } });
   }
 };
 </script>
